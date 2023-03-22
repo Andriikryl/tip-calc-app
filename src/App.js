@@ -4,6 +4,22 @@ import React, { useState } from "react";
 function App() {
   const [bill, setBill] = useState("");
   const [tip, setTip] = useState("10%");
+  const [split, setSplit] = useState(1);
+
+  function splitMinus() {
+    setSplit((oldValue) => {
+      if (oldValue === 1) {
+        return 1;
+      } else {
+        return oldValue - 1;
+      }
+    });
+  }
+  function splitPlus() {
+    setSplit((oldValue) => {
+      return oldValue + 1;
+    });
+  }
 
   function handleTipChange(e) {
     let value = e.target.value.replace("%", "");
@@ -33,9 +49,9 @@ function App() {
         <div className="split">
           <label>Split</label>
           <div className="split-control">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
+            <button onClick={splitMinus}>-</button>
+            <span>{split}</span>
+            <button onClick={splitPlus}>+</button>
           </div>
         </div>
         <div className="result">

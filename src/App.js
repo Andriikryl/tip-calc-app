@@ -1,10 +1,11 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function App() {
   const [bill, setBill] = useState("");
   const [tip, setTip] = useState("10%");
   const [split, setSplit] = useState(1);
+  const [splitTotal, setSplitTotal] = useState(0);
 
   function splitMinus() {
     setSplit((oldValue) => {
@@ -21,6 +22,10 @@ function App() {
     });
   }
 
+  function handleBillChange(e) {
+    setBill(e.target.value);
+  }
+
   function handleTipChange(e) {
     let value = e.target.value.replace("%", "");
     if (value.indexOf("%") === -1) {
@@ -29,6 +34,16 @@ function App() {
     setTip(value);
   }
 
+  function calculate() {
+    const percentage = 1 + parseInt(tip.replace("%", "")) / 100;
+    const result = ((bill * percentage) / split).toFixed(2);
+    setSplitTotal(result);
+  }
+
+  useEffect(() => {
+    calculate();
+  }, [bill, tip, split]);
+
   return (
     <div className="App">
       <label>Bill total</label>
@@ -36,7 +51,9 @@ function App() {
         type="text"
         placeholder={"0.00"}
         value={bill}
-        onChange={(e) => setBill(e.target.value)}
+        onChange={(e) => {
+          handleBillChange(e);
+        }}
       />
       <label>Tip</label>
       <input
@@ -56,7 +73,7 @@ function App() {
         </div>
         <div className="result">
           <label>Total</label>
-          <span>$0.00</span>
+          <span>{splitTotal}</span>
         </div>
       </div>
     </div>

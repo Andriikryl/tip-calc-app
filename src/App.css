@@ -34,20 +34,28 @@ input[type="text"]{
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .split button{
   border-radius: 50%;
   border: 0;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 20px;
+  background-color: #cbf3f0;
+  box-shadow: 0 0 5px black;
 }
 
 .split-control span{
   display: block;
+  padding: 0 10px;
 }
 
 .split-control{
   display: flex;
+  align-items: center;
+  font-size: 28px;
 }
 
